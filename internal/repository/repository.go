@@ -17,15 +17,42 @@ func GetCount(any model.TransType) int {
 	count := 0
 	switch any {
 	case model.AirplaneType:
+		AirMutex.Lock()
 		count = len(SlAirplane)
+		AirMutex.Unlock()
 	case model.CarType:
+		CarMutex.Lock()
 		count = len(SlCar)
+		CarMutex.Unlock()
 	case model.BoatType:
+		BoatMutex.Lock()
 		count = len(SlBoat)
+		BoatMutex.Unlock()
 	default:
 		fmt.Println("Unknown type: ", any)
 	}
 	return count
+}
+
+func GetAir(item int) model.Airplane {
+	AirMutex.Lock()
+	ret := SlAirplane[item]
+	AirMutex.Unlock()
+	return ret
+}
+
+func GetCar(item int) model.Car {
+	CarMutex.Lock()
+	ret := SlCar[item]
+	CarMutex.Unlock()
+	return ret
+}
+
+func GetBoat(item int) model.Boat {
+	BoatMutex.Lock()
+	ret := SlBoat[item]
+	BoatMutex.Unlock()
+	return ret
 }
 
 func Insert(any model.TransInterface) {

@@ -48,26 +48,20 @@ func main() {
 		countBoat := 0
 		for {
 			time.Sleep(200 * time.Millisecond)
-			repository.AirMutex.Lock()
 			tmp := repository.GetCount(model.AirplaneType)
 			for ; countAir < tmp; countAir++ {
-				fmt.Println("air: ", repository.SlAirplane[countAir].Name)
+				fmt.Println("air: ", repository.GetAir(countAir).Name)
 			}
-			repository.AirMutex.Unlock()
 
-			repository.CarMutex.Lock()
 			tmp = repository.GetCount(model.CarType)
 			for ; countCar < tmp; countCar++ {
-				fmt.Println("car: ", repository.SlCar[countCar].Name)
+				fmt.Println("car: ", repository.GetCar(countCar).Name)
 			}
-			repository.CarMutex.Unlock()
 
-			repository.BoatMutex.Lock()
 			tmp = repository.GetCount(model.BoatType)
 			for ; countBoat < tmp; countBoat++ {
-				fmt.Println("boat: ", repository.SlBoat[countBoat].Name)
+				fmt.Println("boat: ", repository.GetBoat(countBoat).Name)
 			}
-			repository.BoatMutex.Unlock()
 		}
 	}()
 
