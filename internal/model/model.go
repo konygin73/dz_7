@@ -4,8 +4,8 @@ type TransType byte
 
 const (
 	AnyType TransType = iota
-	CarType
 	AirplaneType
+	CarType
 	BoatType
 )
 
