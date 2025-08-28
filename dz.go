@@ -24,6 +24,10 @@ func main() {
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
+	repository.Init()
+	fmt.Println("start init:")
+	repository.PrintModel(model.AirplaneType)
+
 	go func() {
 		defer wg.Done()
 		for {
@@ -55,6 +59,7 @@ func main() {
 	}()
 	wg.Add(1)
 
+	//loger
 	go func() {
 		countAir := 0
 		countCar := 0
@@ -65,7 +70,6 @@ func main() {
 				fmt.Println("cancel2")
 				return
 			case <-time.After(200 * time.Millisecond):
-				//time.Sleep(200 * time.Millisecond)
 				tmp := repository.GetCount(model.AirplaneType)
 				for ; countAir < tmp; countAir++ {
 					fmt.Println("-air: ", repository.GetAir(countAir).Name)
@@ -98,4 +102,8 @@ func main() {
 	fmt.Println("count air: ", repository.GetCount(model.AirplaneType))
 	fmt.Println("count car: ", repository.GetCount(model.CarType))
 	fmt.Println("count boat: ", repository.GetCount(model.BoatType))
+
+	repository.PrintModel(model.AirplaneType)
+	repository.PrintModel(model.CarType)
+	repository.PrintModel(model.BoatType)
 }
